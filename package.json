@@ -1,0 +1,29 @@
+{
+  "name": "dbfw-login",
+  "version": "1.0.0",
+  "description": "Framework web para base de datos mongodb con login",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "framework",
+    "web",
+    "login",
+    "mongodb"
+  ],
+  "author": "Javier Cisneros L.",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.6.3",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  }
+}

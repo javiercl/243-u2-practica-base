@@ -1,0 +1,48 @@
+<!-- Navbar con Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Mi Aplicación</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <% if (user) { %>
+          <!-- Menú de Configuraciones cargado a la izquierda -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="configDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Configuraciones
+            </a>
+            <div class="dropdown-menu" aria-labelledby="configDropdown">
+              <a class="dropdown-item" href="/users">Usuarios</a>
+            </div>
+          </li>
+        <% } %>
+      </ul>
+  
+      <ul class="navbar-nav ml-auto">
+        <% if (user) { %>
+          <!-- Menú del Usuario Autenticado cargado a la derecha -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= user.name %>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/profile">Mi Perfil</a>
+              <a class="dropdown-item" href="/about">Acerca de</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/auth/logout">Cerrar Sesión</a>
+            </div>
+          </li>
+        <% } else { %>
+          <!-- Mostrar enlaces de Registro y Login si el usuario no está autenticado -->
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Registrar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+  

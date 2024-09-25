@@ -1,0 +1,43 @@
+<!-- Modal de Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Mostrar mensaje de error si existe -->
+        <% if (Array.isArray(error) && error.length > 0) { %>
+          <div class="alert alert-danger">
+            <% error.forEach(function(msg) { %>
+              <p><%= msg %></p>
+            <% }) %>
+          </div>
+        <% } %>
+        <form action="/auth/login" method="POST">
+          <div class="form-group">
+            <label for="loginEmail">Correo Electrónico</label>
+            <input type="email" class="form-control" id="loginEmail" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" class="form-control" id="loginPassword" name="password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script para mostrar el modal de login si hay un error -->
+<% if (Array.isArray(error) && error.length > 0) { %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      $('#loginModal').modal('show');
+    });
+  </script>
+<% } %>

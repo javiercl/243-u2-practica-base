@@ -22,7 +22,9 @@
       <ul class="navbar-nav ml-auto">
         <% if (user) { %>
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown d-flex align-items-center">
+            <img src="/uploads/<%= user.profileImage ? user.profileImage : '/images/user-default.png' %>" alt="Imagen de Perfil" class="rounded-circle profile-thumbnail mr-2">
+
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= user.name %>
             </a>

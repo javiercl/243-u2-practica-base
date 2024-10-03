@@ -7,6 +7,7 @@
   <title>Lista de Usuarios</title>
   <!-- Bootstrap CSS CDN -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -24,6 +25,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Imagen de Perfil</th>
           <th>Nombre</th>
           <th>Email</th>
           <th>Rol</th>
@@ -34,6 +36,9 @@
         <% users.forEach((user, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
+            <td>
+              <img src="/uploads/<%= user.profileImage %>" alt="Imagen de Perfil" class="profile-img">
+            </td>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td><%= user.role %></td>
@@ -68,5 +73,21 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Script para vista previa de imagen -->
+  <script>
+  // Función para mostrar la vista previa de la imagen seleccionada
+  function showPreview(input, previewId) {
+    const preview = document.getElementById(previewId);
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result; // Actualiza la imagen del avatar con la nueva imagen seleccionada
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  </script>
+
 </body>
 </html>

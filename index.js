@@ -5,6 +5,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
+const path = require('path');
 
 const app = express();
 
@@ -20,6 +21,8 @@ mongoose.connect(process.env.MONGO_URI)
 // EJS setup
 app.set('view engine', 'ejs');
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
 // Bodyparser
 app.use(express.urlencoded({ extended: false }));
 

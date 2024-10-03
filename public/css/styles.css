@@ -1,0 +1,22 @@
+
+  .avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    cursor: pointer; /* Cambia el cursor para indicar que se puede hacer clic */
+  }
+
+  .profile-thumbnail {
+    width: 50px; /* Ancho de la imagen */
+    height: 50px; /* Alto de la imagen */
+    object-fit: cover; /* Asegura que la imagen se ajuste dentro del contenedor circular */
+  }
+
+ 
+  .profile-img {
+    width: 50px; /* Ancho de la imagen */
+    height: 50px; /* Alto de la imagen */
+    object-fit: cover; /* Asegura que la imagen se ajuste dentro del contenedor circular */
+  }

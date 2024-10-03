@@ -1,4 +1,5 @@
 // controllers/userController.js
+const sharp = require('sharp');
 const User = require('../models/user'); // Importar el modelo de usuario
 
 // Mostrar la lista de usuarios
@@ -21,8 +22,12 @@ exports.showCreateUserForm = (req, res) => {
 // Crear un nuevo usuario
 exports.createUser = async (req, res) => {
   const { name, email, role, password } = req.body;
+  let profileImage = '/images/user-default.png';
+  if (req.file) {
+    profileImage = req.file.filename; // Guardar el nombre del archivo subido
+  }
   try {
-    const newUser = new User({ name, email, role, password }); // Crear un nuevo usuario
+    const newUser = new User({ name, email, role, password, profileImage }); // Crear un nuevo usuario
     await newUser.save(); // Guardar el usuario en la base de datos
     req.flash('success_msg', 'Usuario creado correctamente.');
     res.redirect('/users'); // Redirigir a la lista de usuarios
@@ -52,8 +57,13 @@ exports.showEditUserForm = async (req, res) => {
 // Actualizar un usuario existente
 exports.updateUser = async (req, res) => {
   const { name, email, role } = req.body;
+  let profileImage;
+
+  if (req.file) {
+    profileImage = req.file.filename; // Guardar la nueva imagen si se carga
+  }
   try {
-    await User.findByIdAndUpdate(req.params.id, { name, email, role }); // Actualizar el usuario
+    await User.findByIdAndUpdate(req.params.id, { name, email, role, profileImage }); // Actualizar el usuario
     req.flash('success_msg', 'Usuario actualizado correctamente.');
     res.redirect('/users');
   } catch (err) {

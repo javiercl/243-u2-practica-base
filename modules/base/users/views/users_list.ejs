@@ -12,12 +12,20 @@
 <body>
 
   <!-- Incluir el Navbar -->
-  <%- include('./partials/navbar') %>
+  <%- include('../../../../views/partials/navbar') %>
 
-  <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2>Lista de Usuarios</h2>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">Agregar Usuario</button>
+  <div class="container mt-5 ">
+    <h2>Lista de Usuarios</h2>
+    <div class="d-flex justify-content-between align-items-center mb-1" style="min-height: 100px;">
+      <% if (user.role === 'admin') { %>
+        <a class="btn btn-primary" href="/base/users/new">Agregar Usuario</a>
+      <% } %>
+      <form class="form-inline" method="GET" action="/base/users">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar usuario" aria-label="Buscar" name="search" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+      <%- include('../../../../views/partials/pages',{ modelView: 'users' }) %>
+      <a href="/base/users/export" class="btn btn-primary">Export to CSV</a>
     </div>
 
     <!-- Tabla de Usuarios -->
@@ -33,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <% users.forEach((user, index) => { %>
+        <% results.forEach((user, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
             <td>
@@ -43,8 +51,8 @@
             <td><%= user.email %></td>
             <td><%= user.role %></td>
             <td>
-              <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal" onclick="loadEditModal('<%= user._id %>', '<%= user.name %>', '<%= user.email %>', '<%= user.role %>')">Editar</button>
-              <form action="/users/delete/<%= user._id %>" method="POST" class="d-inline">
+              <a href="/base/users/edit/<%= user._id %>" class="btn btn-sm btn-warning">Editar</a>
+              <form action="/base/users/delete/<%= user._id %>" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</button>
               </form>
             </td>
@@ -53,21 +61,6 @@
       </tbody>
     </table>
   </div>
-
-  <!-- Incluir los Modales -->
-  <%- include('./partials/createUser') %>
-  <%- include('./partials/editUser') %>
-
-  <!-- Script para cargar datos en el modal de edición -->
-  <script>
-    function loadEditModal(id, name, email, role) {
-      const editModal = document.querySelector('#editUserModal');
-      editModal.querySelector('form').action = `/users/edit/${id}`;
-      editModal.querySelector('#name').value = name;
-      editModal.querySelector('#email').value = email;
-      editModal.querySelector('#role').value = role;
-    }
-  </script>
 
   <!-- Bootstrap JS and dependencies (jQuery, Popper.js, Bootstrap JS) -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

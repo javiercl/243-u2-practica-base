@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
 const path = require('path');
+const fs = require('fs');
+const globals = require('./middleware/globals');
+
 
 const app = express();
 
@@ -45,13 +48,49 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.showLoading = true;
   next();
 });
 
-// Routes
-app.use('/', require('./routes/indexRouters'));
-app.use('/auth', require('./routes/authRoutes'));
-app.use('/users', require('./routes/userRoutes'));
+// Middleware para manejar la renderización de vistas modulares
+app.use((req, res, next) => {
+  res.renderModuleView = function(moduleName, view, options) {
+    const viewPath = path.join(__dirname, 'modules', moduleName, 'views', view);
+    return res.render(viewPath, options);
+  };
+  next();
+});
+
+// Función para cargar rutas de módulos dinámicamente
+modules = [];
+function loadModuleRoutes(app) {
+  const modulesPath = path.join(__dirname, 'modules');
+  const modules = fs.readdirSync(modulesPath).filter(file => 
+    fs.statSync(path.join(modulesPath, file)).isDirectory()
+  );
+
+  app.use(globals({ modules }));
+
+  modules.forEach(moduleName => {
+    const routePath = path.join(modulesPath, moduleName, 'routes.js');
+    if (fs.existsSync(routePath)) {
+      const route = require(routePath);
+      //app.use(`/${moduleName}`, require(routePath));
+      route(app, moduleName);
+      console.log(`Rutas cargadas para el módulo: ${moduleName}`);
+    }
+  });
+}
+
+// Cargar rutas de módulos
+loadModuleRoutes(app);
+
+
+const indexRoutes = require('./routes/indexRoutes')(modules);
+app.use('/', indexRoutes);
+
+const authRoutes = require('./routes/authRoutes')(modules);
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
 

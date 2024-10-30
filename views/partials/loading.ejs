@@ -1,0 +1,13 @@
+<!-- Animación de carga -->
+<% if (showLoading) { %>
+    <div id="loadingAnimation" class="loading-animation" style="display: none;">
+      <div class="spinner"></div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('mainForm').addEventListener('submit', function() {
+          document.getElementById('loadingAnimation').style.display = 'block';
+        });
+      });
+    </script>
+  <% } %>

@@ -1,0 +1,39 @@
+<nav aria-label="Page navigation" class="d-flex justify-content-between align-items-center">
+    <!-- Selector para cambiar el límite de registros por página -->
+    <form method="GET" action="/users" class="d-flex align-items-center">
+      <input type="hidden" name="search" value="<%= searchQuery %>">
+      <input type="hidden" name="page" value="<%= currentPage %>">
+      <select class="form-control mr-2" name="limit" id="limit" onchange="this.form.submit()">
+        <option value="5" <%= limit == 5 ? 'selected' : '' %>>5</option>
+        <option value="10" <%= limit == 10 ? 'selected' : '' %>>10</option>
+        <option value="15" <%= limit == 15 ? 'selected' : '' %>>15</option>
+        <option value="20" <%= limit == 20 ? 'selected' : '' %>>20</option>
+      </select>
+    </form>
+  
+    <!-- Paginación -->
+    <ul class="pagination mb-0">
+      <% if (currentPage > 1) { %>
+      <li class="page-item">
+        <a class="page-link" href="/<%= modelView %>?page=<%= currentPage - 1 %>&search=<%= searchQuery %>&limit=<%= limit %>" aria-label="Previous">
+          <span aria-hidden="true">&laquo; </span>
+        </a>
+      </li>
+      <% } %>
+  
+      <!-- Mostrar el formato actual/total -->
+      <li class="page-item disabled">
+        <span class="page-link"><%= currentPage %> / <%= totalPages %></span>
+      </li>
+  
+      <% if (currentPage < totalPages) { %>
+      <li class="page-item">
+        <a class="page-link" href="/<%= modelView %>?page=<%= currentPage + 1 %>&search=<%= searchQuery %>&limit=<%= limit %>" aria-label="Next">
+          <span aria-hidden="true"> &raquo;</span>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+  </nav>
+  
+  

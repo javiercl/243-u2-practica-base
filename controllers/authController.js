@@ -1,5 +1,5 @@
 // controllers/userController.js
-const User = require('../models/user');
+const User = require('../modules/base/users/models');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 

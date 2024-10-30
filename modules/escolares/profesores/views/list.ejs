@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>htld - <%= title %></title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Incluir el Navbar -->
+  <%- include('../../../../views/partials/navbar') %>
+
+
+  <div class="container mt-5 ">
+    <h2>Lista de <%= title %></h2>
+    <div class="d-flex justify-content-between align-items-center mb-1" style="min-height: 100px;">
+      <% if (user.role === 'admin') { %>
+      <a class="btn btn-primary" href="/<%= moduleName %>/form/new">Crear</a>
+      <% } %>
+      <form class="form-inline" method="GET" action="<%= moduleName %>">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar usuario" aria-label="Buscar" name="search" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+      <%- include('../../../../views/partials/pages',{ modelView: 'itemes' }) %>
+    </div>
+
+    <!-- Tabla de Usuarios -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Foto</th>
+          <th>NIP</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>CURP</th>
+          <th>Grado de Estudios</th>
+          <th>Fecha de Ingreso</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% results.forEach((item, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td>
+              <img src="/uploads/<%= item.profileImage %>" alt="Fotografia" class="profile-img">
+            </td>
+            <td><%= item.nip %></td>
+            <td><%= item.name %></td>
+            <td><%= item.email %></td>
+            <td><%= item.curp %></td>
+            <td><%= item.grade %></td>
+            <td><%= item.ingres_date.toISOString().split('T')[0] %></td>
+            <td>
+              <a href="/<%= moduleName %>/form/edit/<%= item._id %>" class="btn btn-sm btn-warning">Editar</a>
+              <form action="/<%= moduleName %>/form/delete/<%= item._id %>" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este item?');">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../../../../views/partials/loading') %>  
+  <!-- Bootstrap JS and dependencies (jQuery, Popper.js, Bootstrap JS) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

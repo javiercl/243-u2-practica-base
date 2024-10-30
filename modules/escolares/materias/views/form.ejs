@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>htld - <%= title %></title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/alumnos/edit.css">
+</head>
+<body>
+  
+  <%- include('../../../../views/partials/navbar') %>
+
+  <div class="centered-container">
+    <div class="form-container">
+      <a href="/<%= moduleName %>/list" class="close-btn">&times;</a>
+      <h2 class="text-center mb-4"><%= typeform === 'edit' ? 'Editar': 'Crear' %> <%= title %></h2>
+      <% if (Array.isArray(error_msg) && error_msg.length > 0) { %>
+        <div class="alert alert-danger">
+          <% error_msg.forEach(function(msg) { %>
+            <p class="mb-0"><%= msg %></p>
+          <% }) %>
+        </div>
+      <% } %>
+      <form action="/<%= moduleName %>/form/edit/<%= typeof item !== 'undefined' ? item._id : 'new' %>" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="name">Clave</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= typeof item !== 'undefined' ? item.name : '' %>" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Descripcion</label>
+          <input type="text" class="form-control" id="description" name="description" value="<%= typeof item !== 'undefined' ? item.description : '' %>" required>
+        </div>
+        <div class="form-group">
+          <label for="cred">Creditos</label>
+          <input type="cred" class="form-control" id="cred" name="cred" value="<%= typeof item !== 'undefined' ? item.cred : '' %>" required>
+        </div>
+        <div class="form-group">
+          <label for="hp">Horas Practica</label>
+          <input type="text" class="form-control" id="hp" name="hp" value="<%= typeof item !== 'undefined' ? item.hp : '' %>" required>
+        </div>
+        <div class="form-group">
+          <label for="ht">Horas Teoria</label>
+          <input type="date" class="form-control" id="ht" name="ht" value="<%= typeof item !== 'undefined' ? item.ht : '' %>" required>
+        </div>
+
+        <div class="button-container">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <a class="btn btn-secondary" href="/<%= moduleName %>/list">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <%- include('../../../../views/partials/loading') %>  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+  function showPreview(input, previewId) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById(previewId).src = e.target.result;
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  </script>
+</body>
+</html>

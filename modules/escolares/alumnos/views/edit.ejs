@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>htld - <%= title %></title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/alumnos/edit.css">
+</head>
+<body>
+  
+  <%- include('../../../../views/partials/navbar') %>
+
+  <div class="centered-container">
+    <div class="form-container">
+      <a href="/<%= moduleName %>" class="close-btn">&times;</a>
+      <h2 class="text-center mb-4"> Editar <%= title %></h2>
+      <% if (Array.isArray(error_msg) && error_msg.length > 0) { %>
+        <div class="alert alert-danger">
+          <% error_msg.forEach(function(msg) { %>
+            <p class="mb-0"><%= msg %></p>
+          <% }) %>
+        </div>
+      <% } %>
+      <form action="/<%= moduleName %>/edit/<%= item._id %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group text-center">
+          <img id="editPreview" class="avatar-preview mb-3" src="/uploads/<%= item.profileImage %>" alt="Vista previa" onclick="document.getElementById('editProfileImage').click();">
+          <input type="file" id="editProfileImage" name="profileImage" accept="image/*" style="display: none;" onchange="showPreview(this, 'editPreview')">
+        </div>
+        <div class="form-group">
+          <label for="ncontrol">Num. de Control</label>
+          <input type="text" class="form-control" id="ncontrol" name="ncontrol" value="<%= item.ncontrol %>" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= item.name %>" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <input type="email" class="form-control" id="email" name="email" value="<%= item.email %>" required>
+        </div>
+        <div class="form-group">
+          <label for="born_date">Fecha de nacimiento</label>
+          <input type="date" class="form-control" id="born_date" name="born_date" value="<%= item.born_date.toISOString().split('T')[0] %>" required>
+        </div>
+        <div class="form-group">
+          <label for="sex">Sexo</label>
+          <select class="form-control" id="sex" name="sex" required>
+            <option value="">Selecciona una opción</option>
+            <option value="femenino" <%= item.sex === 'femenino' ? 'selected' : '' %>>Femenino</option>
+            <option value="masculino" <%= item.sex === 'masculino' ? 'selected' : '' %>>Masculino</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="curp">CURP</label>
+          <input type="text" class="form-control" id="curp" name="curp" value="<%= item.curp %>" required>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          <a class="btn btn-secondary" href="/<%= moduleName %>">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+  function showPreview(input, previewId) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById(previewId).src = e.target.result;
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  </script>
+</body>
+</html>

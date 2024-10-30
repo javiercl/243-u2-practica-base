@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+  <!-- Incluir el Navbar -->
+  <%- include('./partials/navbar') %>
+
+  <div class="centered-container">
+    <div class="form-container">
+      <h2 class="text-center mb-4">Login</h2>
+      <% if (Array.isArray(error_msg) && error_msg.length > 0) { %>
+        <div class="alert alert-danger">
+          <% error_msg.forEach(function(msg) { %>
+            <p class="mb-0"><%= msg %></p>
+          <% }) %>
+        </div>
+      <% } %>
+      <form action="/auth/login" method="POST">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" class="form-control" id="loginEmail" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" class="form-control" id="loginPassword" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('./partials/loading') %>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

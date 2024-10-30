@@ -6,19 +6,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <% if (user) { %>
-          <!-- Menú de Configuraciones cargado a la izquierda -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="configDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Configuraciones
-            </a>
-            <div class="dropdown-menu" aria-labelledby="configDropdown">
-              <a class="dropdown-item" href="/users">Usuarios</a>
-            </div>
-          </li>
+      <% if (user) { %>
+        <% if (modules) { %>
+          <% console.log(modules); %>
+          <% modules.forEach(module => { %>
+          <%- include(`../../modules/${module}/menu.ejs`) %>
+          <% }) %>
         <% } %>
+      <% } %>
       </ul>
-  
       <ul class="navbar-nav ml-auto">
         <% if (user) { %>
           <!-- Menú del Usuario Autenticado cargado a la derecha -->
@@ -38,10 +34,10 @@
         <% } else { %>
           <!-- Mostrar enlaces de Registro y Login si el usuario no está autenticado -->
           <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#registerModal">Registrar</a>
+            <a class="nav-link" href="/auth/register" >Registrar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+            <a class="nav-link" href="/auth/login" >Login</a>
           </li>
         <% } %>
       </ul>

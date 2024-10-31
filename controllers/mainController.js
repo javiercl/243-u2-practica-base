@@ -54,7 +54,7 @@ exports.getItemsPaginated = async(req, res, moduleName, view, Model, title) => {
         limit,
         title: `${Model.modelName}`,
         moduleName: moduleName,
-        modules:req.modules
+        modules:req.modules,
       });
       
     } catch (err) {
@@ -157,7 +157,7 @@ exports.showEditUserForm = async (req, res, moduleName, view, Model, typeform) =
     }
     //console.info(`pasa ${item}`);
 
-    res.renderModuleView(moduleName, view,{
+    res.renderModuleView(moduleName, view, {
       title: `${Model.modelName}`,
       moduleName,
       item,

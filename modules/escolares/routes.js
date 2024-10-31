@@ -13,8 +13,6 @@ module.exports = function(app) {
         moduleName: 'escolares/alumnos',
         view_list: 'list',
         view_form: 'form',
-        view_create: 'create',
-        view_edit: 'edit',
         model: Alumno,
         route: '/alumnos',
         title: 'Alumnos'
@@ -23,8 +21,6 @@ module.exports = function(app) {
         moduleName: 'escolares/profesores',
         view_list: 'list',
         view_form: 'form',
-        view_create: 'create',
-        view_edit: 'edit',
         model: Profesor,
         route: '/profesores',
         title: 'Profesores'
@@ -33,8 +29,6 @@ module.exports = function(app) {
         moduleName: 'escolares/materias',
         view_list: 'list',
         view_form: 'form',
-        view_create: 'create',
-        view_edit: 'edit',
         model: Materias,
         route: '/materias',
         title: 'Materias'

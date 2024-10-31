@@ -8,10 +8,9 @@
       <ul class="navbar-nav">
       <% if (user) { %>
         <% if (modules) { %>
-          <% console.log(modules); %>
           <% modules.forEach(module => { %>
           <%- include(`../../modules/${module}/menu.ejs`) %>
-          <% }) %>
+          <% }); %>
         <% } %>
       <% } %>
       </ul>
@@ -42,5 +41,5 @@
         <% } %>
       </ul>
     </div>
-  </nav>
+</nav>
   

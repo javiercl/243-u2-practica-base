@@ -55,8 +55,11 @@ app.use((req, res, next) => {
 // Middleware para manejar la renderización de vistas modulares
 app.use((req, res, next) => {
   res.renderModuleView = function(moduleName, view, options) {
-    const viewPath = path.join(__dirname, 'modules', moduleName, 'views', view);
-    return res.render(viewPath, options);
+    const viewPath = path.join(__dirname, 'modules',moduleName,'views',view);
+    options.bodyContent = viewPath;
+    options.loadingPath = req.loadingPath;
+    options.navbarPath = req.navbarPath;
+    return res.render(req.layout_view, options);
   };
   next();
 });
@@ -80,11 +83,11 @@ function loadModuleRoutes(app) {
       console.log(`Rutas cargadas para el módulo: ${moduleName}`);
     }
   });
+  return modules;
 }
 
 // Cargar rutas de módulos
-loadModuleRoutes(app);
-
+modules = loadModuleRoutes(app);
 
 const indexRoutes = require('./routes/indexRoutes')(modules);
 app.use('/', indexRoutes);

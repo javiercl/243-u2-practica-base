@@ -15,7 +15,7 @@ module.exports = function(router, params) {
     }); 
     
     router.get(`${params.route}/form/new`, ensureAuthenticated,  (req, res, next) => {
-        mainController.showCreateItemForm(req,res,params.moduleName,params.view_form,params.model, 'create').catch(next)
+        mainController.showCreateItemForm(req,res,params.moduleName,params.view_form,params.model,'create').catch(next)
     }); // Mostrar formulario de creación de usuario
     
     router.post(`${params.route}/form/new`, ensureAuthenticated, upload.single('profileImage'), (req, res, next) => mainController.createItem(req,res,params.moduleName,params.model).catch(next));

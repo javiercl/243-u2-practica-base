@@ -1,19 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>htld - <%= title %></title>
-  <!-- Bootstrap CSS CDN -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/styles.css" rel="stylesheet">
-</head>
-<body>
-
-  <!-- Incluir el Navbar -->
-  <%- include('../../../../views/partials/navbar') %>
-
 
   <div class="container mt-5 ">
     <h2>Lista de <%= title %></h2>
@@ -44,21 +28,21 @@
         </tr>
       </thead>
       <tbody>
-        <% results.forEach((alumno, index) => { %>
+        <% results.forEach((item, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
             <td>
-              <img src="/uploads/<%= alumno.profileImage %>" alt="Fotografia" class="profile-img">
+              <img src="/uploads/<%= item.profileImage %>" alt="Fotografia" class="profile-img">
             </td>
-            <td><%= alumno.ncontrol %></td>
-            <td><%= alumno.name %></td>
-            <td><%= alumno.email %></td>
-            <td><%= alumno.born_date.toISOString().split('T')[0] %></td>
-            <td><%= alumno.sex %></td>
-            <td><%= alumno.curp %></td>
+            <td><%= item.ncontrol %></td>
+            <td><%= item.name %></td>
+            <td><%= item.email %></td>
+            <td><%= item.born_date.toISOString().split('T')[0] %></td>
+            <td><%= item.sex %></td>
+            <td><%= item.curp %></td>
             <td>
-              <a href="/<%= moduleName %>/edit/<%= alumno._id %>" class="btn btn-sm btn-warning">Editar</a>
-              <form action="/<%= moduleName %>/delete/<%= alumno._id %>" method="POST" class="d-inline">
+              <a href="/<%= moduleName %>/form/edit/<%= item._id %>" class="btn btn-sm btn-warning">Editar</a>
+              <form action="/<%= moduleName %>/form/delete/<%= item._id %>" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este alumno?');">Eliminar</button>
               </form>
             </td>
@@ -67,11 +51,3 @@
       </tbody>
     </table>
   </div>
-
-  <!-- Bootstrap JS and dependencies (jQuery, Popper.js, Bootstrap JS) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>

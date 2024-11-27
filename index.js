@@ -78,7 +78,6 @@ function loadModuleRoutes(app) {
     const routePath = path.join(modulesPath, moduleName, 'routes.js');
     if (fs.existsSync(routePath)) {
       const route = require(routePath);
-      //app.use(`/${moduleName}`, require(routePath));
       route(app, moduleName);
       console.log(`Rutas cargadas para el módulo: ${moduleName}`);
     }
